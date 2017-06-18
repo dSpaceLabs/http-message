@@ -14,6 +14,20 @@ class Stream implements StreamInterface
     protected $stream;
 
     /**
+     * @var array
+     */
+    protected $metadata = array();
+
+    protected $modeMapping = array(
+        'readable' => array('r', 'r+', 'w+', 'a+', 'x+', 'c+', 'rb', 'w+b'),
+        'writable' => array('r+', 'w', 'a', 'x', 'c', 'w+b'),
+    );
+
+    protected $seekable;
+    protected $readable;
+    protected $writable;
+
+    /**
      * @param resource $stream
      */
     public function __construct($stream)
@@ -22,7 +36,11 @@ class Stream implements StreamInterface
             throw new \InvalidArgumentException('Invalid Resource');
         }
 
-        $this->stream = $stream;
+        $this->stream   = $stream;
+        $this->metadata = stream_get_meta_data($this->stream);
+        $this->seekable = $this->metadata['seekable'];
+        $this->readable = in_array($this->metadata['mode'], $this->modeMapping['readable']);
+        $this->writable = in_array($this->metadata['mode'], $this->modeMapping['writable']);
     }
 
     /**
@@ -89,8 +107,7 @@ class Stream implements StreamInterface
      */
     public function isSeekable()
     {
-        $metadata = stream_get_meta_data($stream);
-        return $metadata['seekable'];
+        return $this->seekable;
     }
 
     /**
@@ -114,8 +131,7 @@ class Stream implements StreamInterface
      */
     public function isWritable()
     {
-        $metadata = stream_get_meta_data($stream);
-        $mode = $metadata['mode'];
+        return $this->writable;
     }
 
     /**
@@ -123,7 +139,13 @@ class Stream implements StreamInterface
      */
     public function write($string)
     {
-        return fwrite($this->stream, $string);
+        $bytes = fwrite($this->stream, $string);
+
+        if (false === $bytes) {
+            throw new \RuntimeException('Unable to write to stream');
+        }
+
+        return $bytes;
     }
 
     /**
@@ -131,6 +153,7 @@ class Stream implements StreamInterface
      */
     public function isReadable()
     {
+        return $this->readable;
     }
 
     /**
@@ -146,7 +169,13 @@ class Stream implements StreamInterface
      */
     public function getContents()
     {
-        return stream_get_contents($this->stream);
+        $contents = stream_get_contents($this->stream);
+
+        if (false === $contents) {
+            throw new \RuntimeException('Unable to get contents of stream');
+        }
+
+        return $contents;
     }
 
     /**
