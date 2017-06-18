@@ -9,10 +9,36 @@ use Psr\Http\Message\StreamInterface;
 class Stream implements StreamInterface
 {
     /**
+     * @var resource
+     */
+    protected $stream;
+
+    /**
+     * @param resource $stream
+     */
+    public function __construct($stream)
+    {
+        if (!is_resource($stream)) {
+            throw new \InvalidArgumentException('Invalid Resource');
+        }
+
+        $this->stream = $stream;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function __toString()
     {
+        return stream_get_contents($this->stream);
+    }
+
+    /**
+     * Make sure the stream is closed
+     */
+    public function __destruct()
+    {
+        $this->close();
     }
 
     /**
@@ -20,6 +46,9 @@ class Stream implements StreamInterface
      */
     public function close()
     {
+        if (is_resource($this->stream)) {
+            fclose($this->stream);
+        }
     }
 
     /**
@@ -34,6 +63,9 @@ class Stream implements StreamInterface
      */
     public function getSize()
     {
+        $stats = fstat($this->stream);
+
+        return $stats['size'];
     }
 
     /**
@@ -41,6 +73,7 @@ class Stream implements StreamInterface
      */
     public function tell()
     {
+        return ftell($this->stream);
     }
 
     /**
@@ -48,6 +81,7 @@ class Stream implements StreamInterface
      */
     public function eof()
     {
+        return feof($this->stream);
     }
 
     /**
@@ -55,6 +89,8 @@ class Stream implements StreamInterface
      */
     public function isSeekable()
     {
+        $metadata = stream_get_meta_data($stream);
+        return $metadata['seekable'];
     }
 
     /**
@@ -62,6 +98,7 @@ class Stream implements StreamInterface
      */
     public function seek($offset, $whence = SEEK_SET)
     {
+        return fseek($this->stream, $offset, $whence);
     }
 
     /**
@@ -69,6 +106,7 @@ class Stream implements StreamInterface
      */
     public function rewind()
     {
+        $this->seek(0);
     }
 
     /**
@@ -76,6 +114,8 @@ class Stream implements StreamInterface
      */
     public function isWritable()
     {
+        $metadata = stream_get_meta_data($stream);
+        $mode = $metadata['mode'];
     }
 
     /**
@@ -83,6 +123,7 @@ class Stream implements StreamInterface
      */
     public function write($string)
     {
+        return fwrite($this->stream, $string);
     }
 
     /**
@@ -97,6 +138,7 @@ class Stream implements StreamInterface
      */
     public function read($length)
     {
+        return fread($this->stream, $length);
     }
 
     /**
@@ -104,6 +146,7 @@ class Stream implements StreamInterface
      */
     public function getContents()
     {
+        return stream_get_contents($this->stream);
     }
 
     /**
@@ -111,5 +154,12 @@ class Stream implements StreamInterface
      */
     public function getMetadata($key = null)
     {
+        $metadata = stream_get_meta_data($this->stream);
+
+        if (null === $key) {
+            return $metadata;
+        }
+
+        return isset($metadata[$key]) ? $metadata[$key] : null;
     }
 }
