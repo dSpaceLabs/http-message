@@ -232,5 +232,41 @@ class Uri implements UriInterface
      */
     public function __toString()
     {
+        $uri = '';
+        if ('' != $this->scheme) {
+            $uri .= $this->scheme.':';
+        }
+
+        if ('' != $this->username) {
+            $uri .= '//'.$this->username;
+        }
+
+        if ('' != $this->password) {
+            $uri .= ':'.$this->password;
+        }
+
+        if ('' != $this->username || '' != $this->password) {
+            $uri .= '@';
+        }
+
+        if ('' != $this->host) {
+            $uri .= $this->host;
+        }
+
+        if ('' != $this->port) {
+            $uri .= ':'.$this->port;
+        }
+
+        $uri .= $this->path;
+
+        if ('' != $this->query) {
+            $uri .= '?'.$this->query;
+        }
+
+        if ('' != $this->fragment) {
+            $uri .= '#'.$this->fragment;
+        }
+
+        return $uri;
     }
 }

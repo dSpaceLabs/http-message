@@ -12,6 +12,7 @@ class UriTest extends TestCase
         $uri = (new Uri())
             ->withScheme('http')
             ->withHost('www.example.com');
+
         $this->assertSame('http', $uri->getScheme());
         $this->assertSame('', $uri->getAuthority());
         $this->assertSame('', $uri->getUserInfo());
@@ -56,5 +57,18 @@ class UriTest extends TestCase
         $this->assertSame('', $uri->getPath());
         $this->assertSame('', $uri->getQuery());
         $this->assertSame('', $uri->getFragment());
+    }
+
+    public function testToString()
+    {
+        $uri = (new Uri())
+            ->withScheme('http')
+            ->withUserInfo('username', 'password')
+            ->withHost('www.example.com')
+            ->withPort(80)
+            ->withPath('/')
+            ->withQuery('page=1')
+            ->withFragment('heading');
+        $this->assertSame('http://username:password@www.example.com:80/?page=1#heading', $uri->__toString());
     }
 }
