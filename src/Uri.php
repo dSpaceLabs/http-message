@@ -54,6 +54,21 @@ class Uri implements UriInterface
     protected $fragment = '';
 
     /**
+     * Passing in the URI as the argument will parse out the URI into it's
+     * parts
+     *
+     * @param string|null $uri
+     * @throws \InvalidArgumentException
+     */
+    public function __construct($uri = '')
+    {
+        if ('' != $uri) {
+            $parts = parse_url($uri);
+            $this->parseParts($parts);
+        }
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getScheme()
@@ -66,7 +81,22 @@ class Uri implements UriInterface
      */
     public function getAuthority()
     {
-        return $this->authority;
+        if ('' == $this->host) {
+            return '';
+        }
+
+        $authority = '';
+        if ($this->username || $this->password) {
+            $authority .= $this->getUserInfo().'@';
+        }
+
+        $authority .= $this->host;
+
+        if (null != $this->port) {
+            $authority .= ':'.$this->port;
+        }
+
+        return $authority;
     }
 
     /**
@@ -268,5 +298,22 @@ class Uri implements UriInterface
         }
 
         return $uri;
+    }
+
+    /**
+     * @see http://php.net/manual/en/function.parse-url.php
+     * @param array $parts
+     * @return void
+     */
+    protected function parseParts(array $parts)
+    {
+        $this->scheme   = isset($parts['scheme']) ? $parts['scheme'] : '';
+        $this->host     = isset($parts['host']) ? $parts['host'] : '';
+        $this->port     = isset($parts['port']) ? $parts['port'] : null;
+        $this->username = isset($parts['user']) ? $parts['user'] : '';
+        $this->password = isset($parts['pass']) ? $parts['pass'] : '';
+        $this->path     = isset($parts['path']) ? $parts['path'] : '';
+        $this->query    = isset($parts['query']) ? $parts['query'] : '';
+        $this->fragment = isset($parts['fragment']) ? $parts['fragment'] : '';
     }
 }
