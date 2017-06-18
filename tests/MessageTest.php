@@ -1,9 +1,9 @@
 <?php
 
-namespace Dspacelabs\Component\Http\Tests;
+namespace Dspacelabs\Component\Http\Message\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Dspacelabs\Component\Http\Message;
+use Dspacelabs\Component\Http\Message\Message;
 
 class MessageTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dspacelabs\Component\Http;
+namespace Dspacelabs\Component\Http\Message;
 
 /**
  */

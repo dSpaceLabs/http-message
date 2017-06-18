@@ -13,10 +13,10 @@
         "psr/http-message": "^1.0"
     },
     "autoload": {
-        "psr-4": { "Dspacelabs\\Component\\Http\\": "src/" }
+        "psr-4": { "Dspacelabs\\Component\\Http\\Message\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Dspacelabs\\Component\\Http\\Tests\\": "tests/" }
+        "psr-4": { "Dspacelabs\\Component\\Http\\Message\\Tests\\": "tests/" }
     },
     "extra": {
         "branch-alias": {
