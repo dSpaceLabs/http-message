@@ -1,11 +1,11 @@
 # Change Log
 
 ## [Unreleased]
-
+### Added
+* Uri object now supports passing in your URI in the construct
 
 
 ## [0.1.0]
-
 * Initial Release
   * Message, Request, Response, and Uri implemented
 

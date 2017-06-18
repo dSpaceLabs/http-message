@@ -17,10 +17,18 @@ composer require dspacelabs/http-message
 ```php
 use Dspacelabs\Component\Http\Message\Uri;
 
-$uri = new Uri();
-$uri
+$uri = (new Uri())
     ->withScheme('http')
     ->withHost('www.example.com');
+```
+
+If you want something less verbose, you can also pass in the URL when creating
+new Uri objects.
+
+```php
+use Dspacelabs\Component\Http\Message\Uri;
+
+$uri = new Uri('http://www.example.com');
 ```
 
 ### Creating Requests
@@ -29,14 +37,10 @@ $uri
 use Dspacelabs\Component\Http\Message\Uri;
 use Dspacelabs\Component\Http\Message\Request;
 
-$uri = (new Uri())
-    ->withScheme('http')
-    ->withHost('www.example.com');
-
 $request = new Request();
 $request
     ->withMethod('GET')
-    ->withUri($uri);
+    ->withUri(new Uri('http://www.example.com'));
 
 ```
 
