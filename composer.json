@@ -1,0 +1,30 @@
+{
+    "name": "dspacelabs/http-message",
+    "description": "PSR-7 Library",
+    "license": "MIT",
+    "keywords": ["psr7"],
+    "homepage": "https://github.com/dSpaceLabs/http-message",
+    "support": {
+        "issues": "https://github.com/dSpaceLabs/http-message/issues",
+        "source": "https://github.com/dSpaceLabs/http-message",
+        "docs": "https://github.com/dSpaceLabs/http-message"
+    },
+    "require": {
+        "psr/http-message": "^1.0"
+    },
+    "autoload": {
+        "psr-4": { "Dspacelabs\\Component\\Http\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Dspacelabs\\Component\\Http\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2",
+        "phing/phing": "^2.16"
+    }
+}
