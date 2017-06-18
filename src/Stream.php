@@ -2,6 +2,8 @@
 
 namespace Dspacelabs\Component\Http\Message;
 
+use Psr\Http\Message\StreamInterface;
+
 /**
  */
 class Stream implements StreamInterface
