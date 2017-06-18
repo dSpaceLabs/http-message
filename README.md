@@ -49,7 +49,3 @@ $resposne = new Response();
 $response
     ->withStatus(200, 'OK');
 ```
-
-## Change Log
-
-## License
