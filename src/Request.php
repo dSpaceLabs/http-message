@@ -2,7 +2,6 @@
 
 namespace Dspacelabs\Component\Http;
 
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
