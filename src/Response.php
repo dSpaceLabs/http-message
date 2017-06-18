@@ -32,6 +32,8 @@ class Response extends Message
         $response = clone $this;
         $response->code = $code;
         $response->reasonPhrase = $reasonPhrase;
+
+        return $response;
     }
 
     /**
