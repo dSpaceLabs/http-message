@@ -3,10 +3,11 @@
 namespace Dspacelabs\Component\Http\Message;
 
 use Psr\Http\Message\UriInterface;
+use Psr\Http\Message\RequestInterface;
 
 /**
  */
-class Request extends Message
+class Request extends Message implements RequestInterface
 {
     /**
      * @var string

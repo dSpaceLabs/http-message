@@ -2,9 +2,11 @@
 
 namespace Dspacelabs\Component\Http\Message;
 
+use Psr\Http\Message\ResponseInterface;
+
 /**
  */
-class Response extends Message
+class Response extends Message implements ResponseInterface
 {
     /**
      * @var integer
