@@ -4,6 +4,9 @@
 ### Added
 * Uri object now supports passing in your URI in the construct
 
+### Fixed
+* Minor Bugs related to Type Hinting
+
 
 ## [0.1.0]
 * Initial Release
