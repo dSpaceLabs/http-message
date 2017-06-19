@@ -267,25 +267,7 @@ class Uri implements UriInterface
             $uri .= $this->scheme.':';
         }
 
-        if ('' != $this->username) {
-            $uri .= '//'.$this->username;
-        }
-
-        if ('' != $this->password) {
-            $uri .= ':'.$this->password;
-        }
-
-        if ('' != $this->username || '' != $this->password) {
-            $uri .= '@';
-        }
-
-        if ('' != $this->host) {
-            $uri .= $this->host;
-        }
-
-        if ('' != $this->port) {
-            $uri .= ':'.$this->port;
-        }
+        $uri .= '//'.$this->getAuthority();
 
         $uri .= $this->path;
 
