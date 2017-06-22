@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dspacelabs/http-message" default="phpunit">
+    <target name="phpunit">
+        <exec executable="${project.basedir}/vendor/bin/phpunit" passthru="true" output="/dev/stdout" error="/dev/stderr" logoutput="/dev/stdout" level="debug" checkreturn="true">
+            <arg value="--verbose" />
+        </exec>
+    </target>
+</project>
