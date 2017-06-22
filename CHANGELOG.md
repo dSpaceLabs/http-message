@@ -1,7 +1,8 @@
 # Change Log
 
 ## [Unreleased]
-
+* Phing now runs test suite and also is able to generate code coverage reports
+* Travis CI implemented
 
 ## [0.2.0]
 ### Added

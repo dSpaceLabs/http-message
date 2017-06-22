@@ -1,4 +1,4 @@
-dspacelabs/http-message
+dspacelabs/http-message [![Build Status](https://travis-ci.org/dSpaceLabs/http-message.svg?branch=master)](https://travis-ci.org/dSpaceLabs/http-message)
 =======================
 
 This is a simple, very basic implementation of the PSR-7 standard. This library
@@ -53,3 +53,13 @@ $resposne = new Response();
 $response
     ->withStatus(200, 'OK');
 ```
+
+## Testing
+
+Testing is done with PHPUnit and Phing. Once you make updates, run the command
+
+```bash
+./vendor/bin/phing
+```
+
+And this will run PHPUnit and give you test results.
