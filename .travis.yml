@@ -1,0 +1,12 @@
+language: php
+php:
+    - '7.0'
+    - '7.1'
+before_script: composer install
+script: vendor/bin/phing
+notifications:
+    email:
+        recipients:
+            - 'joshua@dspacelabs.com'
+        on_success: never
+        on_failure: always
