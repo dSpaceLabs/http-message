@@ -99,4 +99,24 @@ class UriTest extends TestCase
         $this->assertSame('page=1', $uri->getQuery());
         $this->assertSame('heading', $uri->getFragment());
     }
+
+    public function testEcwidExample()
+    {
+        $uri = new Uri('https://my.ecwid.com/api/oauth/token');
+        $uri = $uri->withQuery(
+            http_build_query(
+                array(
+                    'client_id'     => 'client_id',
+                    'client_secret' => 'client_secret',
+                    'code'          => 'code',
+                    'redirect_uri'  => 'https://www.localhost.com',
+                    'grant_type'    => 'authorization_code',
+                )
+            )
+        );
+
+        $this->assertSame('https', $uri->getScheme());
+        $this->assertSame('/api/oauth/token', $uri->getPath());
+        $this->assertSame('client_id=client_id&client_secret=client_secret&code=code&redirect_uri=https%3A%2F%2Fwww.localhost.com&grant_type=authorization_code', $uri->getQuery());
+    }
 }
