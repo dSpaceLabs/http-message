@@ -139,6 +139,9 @@ class Message implements MessageInterface
      */
     public function getBody()
     {
+        if (!$this->body) {
+            $this->body = new Stream(fopen('php://memory', 'rw+'));
+        }
         return $this->body;
     }
 
