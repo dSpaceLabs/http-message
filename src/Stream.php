@@ -82,7 +82,7 @@ class Stream implements StreamInterface
     public function getSize()
     {
         if (!$this->stream) {
-            return 0;
+            return null;
         }
 
         $stats = fstat($this->stream);
